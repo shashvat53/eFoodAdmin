@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import SideBar from './components/headers/SideBar';
@@ -71,107 +70,74 @@ import BranchPromotionSetup from './layouts/branchTable/BranchPromotionSetup';
 import Availability from './layouts/branchTable/Availability';
 import logo from '../src/assets/logo.png'
 import getLogin from './helper/Auth';
-import OrderDetails from './pages/orderDetails/OrderDetails';
-import PrintPage from './pages/orderDetails/PrintPage';
-
+import CustomerDetails from './components/ui/table/CustomerDetails';
 const App = () => {
-  const [isAuth, setIsAuth] = useContext(UserContext);
-  const [openNav, setOpenNav] = useState("md");
+  const [isAuth, setIsAuth] = useContext(UserContext)
+  const [openNav, setOpenNav] = useState('md');
   const [makeOpen, setMakeOpen] = useState(true);
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const checkAuth = () => {
+  const checkAuth = ()=>{
     if (!isAuth) {
-      navigate("/login");
+      navigate('/login')
     }
-  };
+  }
 
   useEffect(() => {
-    checkAuth;
-    getLogin();
-  }, [isAuth]);
+    checkAuth
+    getLogin()
+  
+ 
+  }, [isAuth])
+  
 
   useEffect(() => {
     const handleResize = () => {
       const deviceWidth = window.innerWidth;
       if (deviceWidth >= 640 && deviceWidth < 1200) {
-        setOpenNav("md");
-      } else if (deviceWidth > 1200) {
-        setOpenNav("lg");
+        setOpenNav('md');
+      } else if(deviceWidth > 1200) {
+        setOpenNav('lg');
       } else {
-        setOpenNav("sm");
+        setOpenNav('sm');
       }
     };
 
-    handleResize();
+    handleResize(); 
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, []); 
 
   return (
     <>
-      {isAuth ? (
+      {isAuth ? <> <div className='fixed top-0 left-0 w-full z-20'>
+        <NavBar setIsAuth={setIsAuth} />
+      </div>
+      
+     <div className='w-[250px] fixed top-0 z-30 flex flex-col'>
         <>
-          {" "}
-          <div className="fixed top-0 left-0 w-full z-20">
-            <NavBar setIsAuth={setIsAuth} />
-          </div>
-          <div className="w-[250px] fixed top-0 z-30 flex flex-col">
-            <>
-              <div className="h-16 flex items-center justify-start gap-11 px-5">
-                <img className="h-10" src={logo} alt="" />
-                <i
-                  className={`ri-skip-${
-                    !makeOpen ? "right" : "left"
-                  }-line text-lg`}
-                  onClick={() => setMakeOpen(!makeOpen)}
-                ></i>
-              </div>
-              {openNav !== "sm" && (
-                <SideBar
-                  className="bg-white"
-                  product={SideMenu()}
-                  openNav={openNav}
-                  makeOpen={makeOpen}
-                  setMakeOpen={setMakeOpen}
-                />
-              )}
-            </>
-            {openNav === "sm" && makeOpen && (
-              <motion.div
-                id="sidebarcontainer"
-                className={`fixed w-[250px] top-0 left-0 border-r-2 shadow-md bg-white`}
-                initial={{ x: -250 }}
-                animate={{ x: 0 }}
-                exit={{ x: -250, transition: { duration: 0.3 } }} // Match the exit transition with the opening animation
-              >
-                <div className="h-16 flex items-center justify-between px-5 ">
-                  <img className="h-10" src={logo} alt="" />
-                  <i
-                    className={`ri-skip-left-line text-lg`}
-                    onClick={() => setMakeOpen(!makeOpen)}
-                  ></i>
-                </div>
-                <SideBar
-                  className="bg-white"
-                  product={SideMenu()}
-                  openNav={openNav}
-                  makeOpen={makeOpen}
-                  setMakeOpen={setMakeOpen}
-                />
-              </motion.div>
-            )}
-          </div>
-          <div
-            className={`p-5  duration-300 transition-all pt-20 ${
-              openNav !== "sm" && makeOpen && "pl-[270px]"
-            } ${openNav !== "sm" && !makeOpen && "pl-[100px]"}`}
+        <div className='h-16 flex items-center justify-start gap-11 px-5'>
+          <img
+            className='h-10'
+            src={logo}
+            alt=''
+          />
+          <i className={`ri-skip-${!makeOpen ? 'right':'left'}-line text-lg`} onClick={()=>setMakeOpen(!makeOpen)}></i>
+        </div>
+       {openNav !== 'sm' && <SideBar className='bg-white' product={SideMenu()} openNav={openNav} makeOpen={makeOpen} setMakeOpen={setMakeOpen}/>}
+        </>
+        {openNav === 'sm' && makeOpen && (
+          <motion.div
+            id='sidebarcontainer'
+            className={`fixed w-[250px] top-0 left-0 border-r-2 shadow-md bg-white`}
+            initial={{ x: -250 }}
+            animate={{ x: 0 }}
+            exit={{ x: -250, transition: { duration: 0.3 } }} // Match the exit transition with the opening animation
           >
-
             <div className='h-16 flex items-center justify-between px-5 '>
               <img
                 className='h-10'
@@ -201,8 +167,6 @@ const App = () => {
           <Route path='/Failed To Deliver' element={<Failed/>}/>
           <Route path='/Canceled' element={<Canceled/>}/>
           <Route path='/Scheduled' element={<Schedule/>}/>
-          <Route path='/order/details/view' element={<OrderDetails/>}/>
-          <Route path='/order/details/print' element={<PrintPage/>}/>
           <Route path='/verify-offline-payment' element={<OfflinePayment/>}/>
           <Route path='/TableOrder/:name' element={<AllTableOrder/>}/>
           <Route path='/Order/:name' element={<OrderList/>}/>
@@ -251,6 +215,7 @@ const App = () => {
           <Route path='/Table/List' element={<TableList/>}/>
           <Route path='/Table/PromotionSetup' element={<BranchPromotionSetup/>}/>
           <Route path='/Table/Availability' element={<Availability/>}/>
+          <Route path='/Table/CustomerDetails' element={<CustomerDetails/>}/>
         </Routes>
         <Footer/>
       </div> </>:<div>
