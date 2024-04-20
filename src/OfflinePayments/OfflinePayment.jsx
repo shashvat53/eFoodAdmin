@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Pending from "../Pending/Pending";
-import Denied from "../Denied/Denied";
+import Pending from "./Pending";
+import Denied from "./Denied";
 
 const OfflinePayment = () => {
   const [toggle, setToggle] = useState(1);

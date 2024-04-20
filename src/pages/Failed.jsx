@@ -4,8 +4,18 @@ import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
 import Footer from "../components/shashank/Footer";
 import Pagination from "../components/shashank/Pagination";
+import TableData from "../helper/TableData";
 
 const Failed = () => {
+  const [failedData, setFailedData] = useState();
+  const fetchFailedData = async () => {
+    const response = await TableData();
+    console.log(response.order);
+    setFailedData(response.order.filter((res) => res.orderStatus === "failed"));
+  };
+  useEffect(() => {
+    fetchFailedData();
+  }, []);
   return (
     <div
       className="py-4 px-4 sm:px-6 lg:px-8
@@ -29,7 +39,7 @@ const Failed = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable />
+      <OrderTable tableData={failedData}/>
       <Pagination />
       <Footer />
     </div>

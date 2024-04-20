@@ -4,8 +4,18 @@ import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
 import Footer from "../components/shashank/Footer";
 import Pagination from "../components/shashank/Pagination";
+import TableData from "../helper/TableData";
 
 const Pending = () => {
+  const [pendingData, setPendingData] = useState();
+  const fetchPendingData = async () => {
+    const response = await TableData();
+    setPendingData(response.order.filter(order =>order.orderStatus === 'pending'))
+    console.log(response);
+  };
+  useEffect(() => {
+    fetchPendingData();
+  }, []);
   return (
     <div
       className="py-4 px-4 sm:px-6 lg:px-8
@@ -31,7 +41,7 @@ const Pending = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable />
+      <OrderTable tableData={pendingData}/>
       <Pagination />
       <Footer />
     </div>
