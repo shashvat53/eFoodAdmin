@@ -4,8 +4,20 @@ import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
 import Footer from "../components/shashank/Footer";
 import Pagination from "../components/shashank/Pagination";
+import TableData from "../helper/TableData";
 
 const Schedule = () => {
+  const [scheduleData, setScheduleData] = useState();
+  const fetchScheduleData = async () => {
+    const response = await TableData();
+    console.log(response);
+    setScheduleData(
+      response.order.filter((res) => res.orderStatus === "schedule")
+    );
+  };
+  useEffect(() => {
+    fetchScheduleData();
+  }, []);
   return (
     <div
       className="py-4 px-4 sm:px-6 lg:px-8
@@ -31,7 +43,7 @@ const Schedule = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable />
+      <OrderTable tableData={scheduleData} />
       <Pagination />
       <Footer />
     </div>

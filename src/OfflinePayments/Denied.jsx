@@ -1,6 +1,22 @@
- import React from "react";
+import React, { useEffect, useState } from "react";
+import VerifyOfflinePayment from "../helper/VerifyOfflinePayment";
 
 const Denied = () => {
+  const [deniedData, setDeniedData] = useState();
+  const fetchDeniedData = async () => {
+    try {
+      const response = await VerifyOfflinePayment();
+      console.log(response.billing, "denied data");
+      setDeniedData(
+        response.billing.filter((res) => res.paymentStatus === "denied")
+      );
+    } catch (error) {
+      console.log(error, "error for denied data");
+    }
+  };
+  useEffect(() => {
+    fetchDeniedData();
+  }, []);
   return (
     <div className="w-full min-w-[900px] m-auto px-1 lg:px-4 overflow-x-scroll">
       <table className="border border-grey-300 w-full mt-8">
@@ -34,29 +50,32 @@ const Denied = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className="hover:bg-blue-50">
-            <td className="text-center text-sm">1</td>
-            <td className="text-center text-sm">100106</td>
-            <td className="text-center text-sm">
-              07 Nov 2023 <br /> 07:01 PM
-            </td>
-            <td className="text-center text-sm">
-              <span>Anika Tahosin</span> <br />
-              +8************
-            </td>
-            <td className="text-center text-sm">353.00$</td>
-            <td className="text-center text-sm">Bank Payment</td>
-            <td className="text-center text-sm">
-              <button className="text-sm text-center bg-red-200 text-red-900 rounded-lg p-2">
-                Denied
-              </button>
-            </td>
-            <td className="text-center text-sm">
-              <button className=" py-3 px-8 text-sm whitespace-nowrap bg-red-500 rounded-lg m-2 text-white text-center">
-                Verify Payment
-              </button>
-            </td>
-          </tr>
+          {deniedData &&
+            deniedData?.map((item, index) => {
+              return (
+                <tr key={index} className="hover:bg-blue-50">
+                  <td className="text-center text-sm">{index + 1}</td>
+                  <td className="text-center text-sm">{item.orderId}</td>
+                  <td className="text-center text-sm">04-04-2024</td>
+                  <td className="text-center text-sm">
+                    <span>Arti</span> <br />
+                    1234567890
+                  </td>
+                  <td className="text-center text-sm">{item.subTotal}</td>
+                  <td className="text-center text-sm">Banking</td>
+                  <td className="text-center text-sm">
+                    <button className="text-sm text-center bg-blue-200 text-blue-900 rounded-lg p-2">
+                      {item.paymentStatus}
+                    </button>
+                  </td>
+                  <td className="text-center">
+                    <button className="py-3 whitespace-nowrap px-8 text-sm bg-red-500 rounded-lg m-2 text-white text-center">
+                      Verify Payment
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>

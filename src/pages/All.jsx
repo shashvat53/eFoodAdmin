@@ -5,8 +5,19 @@ import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
 import Footer from "../components/shashank/Footer";
 import Pagination from "../components/shashank/Pagination";
+import TableData from "../helper/TableData";
 
 const All = () => {
+  const [tableData, setTableData] = useState();
+  const fetchTableData = async () => {
+    const response = await TableData();
+    setTableData(response);
+  };
+
+  useEffect(() => {
+    fetchTableData();
+  }, []);
+
   return (
     <div
       className="py-4 px-4 sm:px-6 lg:px-8">
@@ -83,7 +94,7 @@ const All = () => {
         />
       </div>
       <SearchExportForm />
-      <OrderTable />
+      <OrderTable tableData={tableData?.order}/>
       <Pagination />
       <Footer />
     </div>

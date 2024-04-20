@@ -4,8 +4,20 @@ import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
 import Footer from "../components/shashank/Footer";
 import Pagination from "../components/shashank/Pagination";
+import TableData from "../helper/TableData";
 
 const Canceled = () => {
+  const [cancelledData, setCancelledData] = useState();
+  const fetchCancelledData = async () => {
+    const response = await TableData();
+    console.log(response.order);
+    setCancelledData(
+      response.order.filter((res) => res.orderStatus === "cancelled")
+    );
+  };
+  useEffect(() => {
+    fetchCancelledData();
+  }, []);
   return (
     <div
       className="py-4 px-4 sm:px-6 lg:px-8
@@ -31,7 +43,7 @@ const Canceled = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable />
+      <OrderTable tableData={cancelledData}/>
       <Pagination />
       <Footer />
     </div>
