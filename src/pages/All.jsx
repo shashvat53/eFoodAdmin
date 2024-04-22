@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import OrderCard from "../components/shashank/OrderCard";
 import SearchExportForm from "../components/shashank/SearchExportForm";
@@ -10,8 +10,13 @@ import TableData from "../helper/TableData";
 const All = () => {
   const [tableData, setTableData] = useState();
   const fetchTableData = async () => {
-    const response = await TableData();
-    setTableData(response);
+    try {
+      const response = await TableData();
+      console.log(response.order, "all data");
+      setTableData(response?.order);
+    } catch (error) {
+      console.log(error, "all error");
+    }
   };
 
   useEffect(() => {
@@ -19,8 +24,7 @@ const All = () => {
   }, []);
 
   return (
-    <div
-      className="py-4 px-4 sm:px-6 lg:px-8">
+    <div className="py-4 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-wrap gap-2 items-center ">
         <h2 className="text-xl mb-0 flex items-center gap-1">
           <img
@@ -31,7 +35,9 @@ const All = () => {
           />
           <span className="page-header-title font-semibold">All Orders</span>
         </h2>
-        <span className="inline-block py-1 px-2 text-sm font-semibold text-white bg-gray-500 rounded-full shadow-md">6</span>
+        <span className="inline-block py-1 px-2 text-sm font-semibold text-white bg-gray-500 rounded-full shadow-md">
+          6
+        </span>
       </div>
 
       <SelectDateRange />
@@ -94,7 +100,7 @@ const All = () => {
         />
       </div>
       <SearchExportForm />
-      <OrderTable tableData={tableData?.order}/>
+      <OrderTable tableData={tableData}/>
       <Pagination />
       <Footer />
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -8,12 +8,17 @@ import TableData from "../helper/TableData";
 
 const Canceled = () => {
   const [cancelledData, setCancelledData] = useState();
+
   const fetchCancelledData = async () => {
-    const response = await TableData();
-    console.log(response.order);
-    setCancelledData(
-      response.order.filter((res) => res.orderStatus === "cancelled")
-    );
+    try {
+      const response = await TableData();
+      console.log(response.order, "cancelled");
+      setCancelledData(
+        response.order.filter((res) => res.orderStatus === "cancelled")
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     fetchCancelledData();
@@ -43,7 +48,7 @@ const Canceled = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable tableData={cancelledData}/>
+      <OrderTable tableData={cancelledData} />
       <Pagination />
       <Footer />
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -9,9 +9,15 @@ import TableData from "../helper/TableData";
 const Failed = () => {
   const [failedData, setFailedData] = useState();
   const fetchFailedData = async () => {
-    const response = await TableData();
-    console.log(response.order);
-    setFailedData(response.order.filter((res) => res.orderStatus === "failed"));
+    try {
+      const response = await TableData();
+      console.log(response?.order, "failed");
+      setFailedData(
+        response?.order?.filter((res) => res?.orderStatus === "failed")
+      );
+    } catch (error) {
+      console.log(error, "failed error");
+    }
   };
   useEffect(() => {
     fetchFailedData();
@@ -39,7 +45,7 @@ const Failed = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable tableData={failedData}/>
+      <OrderTable tableData={failedData} />
       <Pagination />
       <Footer />
     </div>

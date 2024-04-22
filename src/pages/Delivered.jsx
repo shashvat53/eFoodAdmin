@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -9,11 +9,15 @@ import TableData from "../helper/TableData";
 const Delivered = () => {
   const [deliveredData, setDeliveredData] = useState();
   const fetchDeliveredData = async () => {
-    const response = await TableData();
-    // console.log(response.order);
+    try {
+      const response = await TableData();
+    console.log(response?.order,'delivered ');
     setDeliveredData(
-      response.order.filter((res) => res.orderStatus === "delivered")
+      response?.order?.filter((res) => res?.orderStatus === "delivered")
     );
+    } catch (error) {
+      console.log(error,'delivered error')
+    }
   };
   useEffect(() => {
     fetchDeliveredData();

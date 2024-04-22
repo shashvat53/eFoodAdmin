@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -6,13 +6,16 @@ import Footer from "../components/shashank/Footer";
 import Pagination from "../components/shashank/Pagination";
 import TableData from "../helper/TableData";
 
-
 const Returned = () => {
   const [returnedData, setReturnedData] = useState();
   const fetchReturnedData = async () => {
-    const response = await TableData();
-    console.log(response.order);
-    setReturnedData(response.order.filter(res.orderStatus === "returned"));
+    try {
+      const response = await TableData();
+      console.log(response?.order, "returned");
+      setReturnedData(response?.order?.filter(res?.orderStatus === "returned"));
+    } catch (error) {
+      console.log(error, "returned error");
+    }
   };
   useEffect(() => {
     fetchReturnedData();
@@ -42,7 +45,7 @@ const Returned = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable tableData={returnedData}/>
+      <OrderTable tableData={returnedData} />
       <Pagination />
       <Footer />
     </div>

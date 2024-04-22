@@ -1,9 +1,8 @@
-import React from "react";
-import instanceAxios from "../Axios/Axios";
+import instance from "../config/Axios";
 
 const OrderTableData = async () => {
   try {
-    const { data } = await instanceAxios.get("/table");
+    const { data } = await instance.get("/table");
     console.log(data, "axios page");
     return data;
   } catch (error) {

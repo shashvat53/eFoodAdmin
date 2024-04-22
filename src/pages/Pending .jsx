@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -9,9 +9,15 @@ import TableData from "../helper/TableData";
 const Pending = () => {
   const [pendingData, setPendingData] = useState();
   const fetchPendingData = async () => {
-    const response = await TableData();
-    setPendingData(response.order.filter(order =>order.orderStatus === 'pending'))
-    console.log(response);
+    try {
+      const response = await TableData();
+      console.log(response?.order, "pending");
+      setPendingData(
+        response?.order?.filter((order) => order?.orderStatus === "pending")
+      );
+    } catch (error) {
+      console.log(error, "pending");
+    }
   };
   useEffect(() => {
     fetchPendingData();
@@ -41,7 +47,7 @@ const Pending = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable tableData={pendingData}/>
+      <OrderTable tableData={pendingData} />
       <Pagination />
       <Footer />
     </div>

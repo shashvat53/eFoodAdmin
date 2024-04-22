@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -9,11 +9,15 @@ import TableData from "../helper/TableData";
 const Schedule = () => {
   const [scheduleData, setScheduleData] = useState();
   const fetchScheduleData = async () => {
-    const response = await TableData();
-    console.log(response);
-    setScheduleData(
-      response.order.filter((res) => res.orderStatus === "schedule")
-    );
+    try {
+      const response = await TableData();
+      console.log(response?.order, "scheduled");
+      setScheduleData(
+        response?.order?.filter((res) => res?.orderStatus === "schedule")
+      );
+    } catch (error) {
+      console.log(error, "scheduled error");
+    }
   };
   useEffect(() => {
     fetchScheduleData();
