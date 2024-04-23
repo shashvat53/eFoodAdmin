@@ -73,7 +73,7 @@ const OrderDetails = () => {
       <h1 className="text-xl font-semibold my-2 ">
         <i className="ri-list-ordered text-red-400"></i> Order Details
       </h1>
-      <div className="flex flex-col gap-3 md:flex-col lg:flex-row justify-center w-full">
+      <div className="flex flex-col gap-3 xl:flex-col 2xl:flex-row justify-center w-full">
         <div className="border flex flex-col gap-3 p-4 rounded-md bg-white shadow ">
           <div className="w-full flex flex-col sm:flex-col md:flex-row gap-1 justify-between ">
             <div className="flex flex-col gap-2 ">
