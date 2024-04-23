@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -9,11 +9,15 @@ import TableData from "../helper/TableData";
 const OutForDelivery = () => {
   const [outForDeliveryData, setOutForDeliveryData] = useState();
   const fetchOutForDeliveryData = async () => {
-    const response = await TableData();
-    console.log(response.order);
-    setOutForDeliveryData(
-      response.order.filter((res) => res.orderStatus === "outforDelivery")
-    );
+    try {
+      const response = await TableData();
+      console.log(response?.order, "out for delivery");
+      setOutForDeliveryData(
+        response?.order?.filter((res) => res?.orderStatus === "outforDelivery")
+      );
+    } catch (error) {
+      console.log(error, "outfordelivery error");
+    }
   };
   useEffect(() => {
     fetchOutForDeliveryData();

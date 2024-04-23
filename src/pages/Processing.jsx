@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -9,11 +9,15 @@ import TableData from "../helper/TableData";
 const Processing = () => {
   const [processingData, setProcessingData] = useState();
   const fetchingProcessingData = async () => {
-    const response = await TableData();
-    console.log(response);
-    setProcessingData(
-      response.order.filter((res) => res.orderStatus === "processing")
-    );
+    try {
+      const response = await TableData();
+      console.log(response?.order, "processing");
+      setProcessingData(
+        response?.order?.filter((res) => res?.orderStatus === "processing")
+      );
+    } catch (error) {
+      console.log(error, "processing");
+    }
   };
   useEffect(() => {
     fetchingProcessingData();
@@ -43,7 +47,7 @@ const Processing = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable tableData={processingData}/>
+      <OrderTable tableData={processingData} />
       <Pagination />
       <Footer />
     </div>

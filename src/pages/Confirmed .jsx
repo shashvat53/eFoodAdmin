@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SelectDateRange from "../components/shashank/SelectDateRange";
 import SearchExportForm from "../components/shashank/SearchExportForm";
 import OrderTable from "../components/shashank/OrderTable";
@@ -9,12 +9,19 @@ import TableData from "../helper/TableData";
 const Confirmed = () => {
   const [confirmedData, setConfirmedData] = useState();
   const fetchConfirmedData = async () => {
-    const response = await TableData();
-    console.log(response.order);
-    setConfirmedData(
-      response.order.filter((res) => res.orderStatus === "confirmed")
-    );
+    try {
+      const response = await TableData();
+      console.log(response?.order, "confirmed");
+      setConfirmedData(
+        response?.order?.filter((res) => res?.orderStatus === "confirmed")
+      );
+    } catch (error) {
+      console.log(error, "confirmed error");
+    }
   };
+  useEffect(() => {
+    fetchConfirmedData();
+  }, []);
   return (
     <div
       className="py-4 px-4 sm:px-6 lg:px-8
@@ -40,7 +47,7 @@ const Confirmed = () => {
       <SelectDateRange />
 
       <SearchExportForm />
-      <OrderTable tableData={confirmedData}/>
+      <OrderTable tableData={confirmedData} />
       <Pagination />
       <Footer />
     </div>

@@ -1,9 +1,9 @@
 import React from "react";
-import instanceAxios from "../Axios/Axios";
+import instance from "../config/Axios";
 
 const VerifyOfflinePayment = async () => {
   try {
-    const { data } = await instanceAxios.get("/billing");
+    const { data } = await instance.get("/billing");
     console.log(data);
     return data;
   } catch (error) {
