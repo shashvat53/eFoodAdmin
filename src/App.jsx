@@ -72,13 +72,13 @@ import logo from "../src/assets/logo.png";
 import getLogin from "./helper/Auth";
 // import CustomerDetails from './components/ui/table/CustomerDetails';
 const App = () => {
-  const [isAuth, setIsAuth] = useContext(UserContext);
-  const [openNav, setOpenNav] = useState("md");
+  const [isAuth, setIsAuth] = useContext(UserContext)
+  const [openNav, setOpenNav] = useState('md');
   const [makeOpen, setMakeOpen] = useState(true);
   const navigate = useNavigate();
   const checkAuth = () => {
     if (!isAuth) {
-      navigate("/login");
+      navigate('/login')
     }
   };
   useEffect(() => {
@@ -89,22 +89,26 @@ const App = () => {
     const handleResize = () => {
       const deviceWidth = window.innerWidth;
       if (deviceWidth >= 640 && deviceWidth < 1200) {
-        setOpenNav("md");
-      } else if (deviceWidth > 1200) {
-        setOpenNav("lg");
+        setOpenNav('md');
+      } else if(deviceWidth > 1200) {
+        setOpenNav('lg');
       } else {
-        setOpenNav("sm");
+        setOpenNav('sm');
       }
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
   return (
     <>
-      {isAuth ? (
+      {isAuth ? <> <div className='fixed top-0 left-0 w-full z-20'>
+        <NavBar setIsAuth={setIsAuth} />
+      </div>
+      
+     <div className='w-[250px] fixed top-0 z-30 flex flex-col'>
         <>
           <div className="fixed top-0 left-0 w-full z-20">
             <NavBar setIsAuth={setIsAuth} />
