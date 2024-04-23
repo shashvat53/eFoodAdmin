@@ -70,6 +70,8 @@ import BranchPromotionSetup from "./layouts/branchTable/BranchPromotionSetup";
 import Availability from "./layouts/branchTable/Availability";
 import logo from "../src/assets/logo.png";
 import getLogin from "./helper/Auth";
+import OrderDetails from "./pages/orderDetails/OrderDetails";
+import PrintPage from "./pages/orderDetails/PrintPage";
 // import CustomerDetails from './components/ui/table/CustomerDetails';
 const App = () => {
   const [isAuth, setIsAuth] = useContext(UserContext)
@@ -104,11 +106,7 @@ const App = () => {
   }, []);
   return (
     <>
-      {isAuth ? <> <div className='fixed top-0 left-0 w-full z-20'>
-        <NavBar setIsAuth={setIsAuth} />
-      </div>
-      
-     <div className='w-[250px] fixed top-0 z-30 flex flex-col'>
+      {isAuth ? (
         <>
           <div className="fixed top-0 left-0 w-full z-20">
             <NavBar setIsAuth={setIsAuth} />
@@ -185,6 +183,14 @@ const App = () => {
               <Route
                 path="/verify-offline-payment"
                 element={<OfflinePayment />}
+              />
+              <Route
+                path="/order/details/view"
+                element={<OrderDetails />}
+              />
+              <Route
+                path="/order/details/print"
+                element={<PrintPage />}
               />
               <Route path="/TableOrder/:name" element={<AllTableOrder />} />
               <Route path="/Order/:name" element={<OrderList />} />
@@ -302,5 +308,7 @@ const App = () => {
       )}
     </>
   );
+
+
 };
 export default App;

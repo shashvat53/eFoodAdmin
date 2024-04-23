@@ -1,21 +1,20 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useReactToPrint } from 'react-to-print'
 
 const PrintPage = () => {
-    const handlePrintTable = () => {
-        const table = document.getElementById("printTable");
-        const tableContent = table.innerHTML;
-        const originalContent = document.body.innerHTML;
-        document.body.innerHTML = tableContent;
-        window.print();
-        document.body.innerHTML = originalContent;
-      };
+
+  const printInvoice = useRef()
+
+      const handlePrintTable = useReactToPrint({
+        content: () => printInvoice.current,
+      });
   return (
     <div className='w-full print:justify-start flex items-center flex-col justify-center'>
         <button onClick={handlePrintTable} className="bg-sky-400 text-white font-semibold rounded-md hover:bg-sky-500 active:scale-95 px-5 py-3">
                 <i className="ri-printer-line"></i>Print Invoice</button>
         <div id='printTable' className='w-fit print:w-[300px] print:max-w-[300px] print:item-start flex items-center flex-col justify-center'>
 
-        <div  className='w-full  max-w-[400px] flex flex-col gap-1 items-center'>
+        <div ref={printInvoice}  className='w-full  max-w-[400px] flex flex-col gap-1 items-center p-2'>
             <div className='text-xl text-center font-bold'>
             <h1>BlockChainBoostUp Restaurant</h1>
             <h1>Restaurant Address, 123</h1>

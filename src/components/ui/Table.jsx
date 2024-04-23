@@ -1,20 +1,18 @@
 import React, {  Fragment, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Table = ({data, filter}) => {
     const listArr = ['SL',	'Order ID',	'Order Date',	'Branch',	'Total Amount',	'Order Status',	'Order Type',	'Actions']
-    
-
     useEffect(()=>{
       // console.log(filter)
     },[])
-
     const Item = (elem, ind)=>{
      return <>
-      <span key={`${elem.sl}-${ind}-${elem.sl}`}>{ind + 1}</span>
-            <span key={`${elem.sl}-${ind}-${elem.orderId}`}>{elem.orderId}</span>
-            <span key={`${elem.sl}-${ind}-${elem.orderDate}`}>{elem.orderDate}</span>
-            <span className="bg-yellow-50" key={`${elem.sl}-${ind}-${elem.branch}`}>{elem.branch}</span>
-            <span className="flex flex-col" key={`${elem.sl}-${ind}-${elem.totalAmount}`}>
+      <span >{ind + 1}</span>
+            <span >{elem.orderId}</span>
+            <span >{elem.orderDate}</span>
+            <span className="bg-yellow-50" >{elem.branch}</span>
+            <span className="flex flex-col">
               <span>
               {elem.totalAmount}
               </span>
@@ -24,11 +22,17 @@ const Table = ({data, filter}) => {
               </span>
             <span 
             className={`font-semibold ${elem.status.replaceAll(' ', '') === 'Confirmed'? 'text-green-500': elem.status.replaceAll(' ', '') === 'Cooking'? 'text-yellow-500': elem.status.replaceAll(' ', '') === 'ReadyForServe' ? 'text-green-500': elem.status.replaceAll(' ', '') === 'Completed'? 'text-blue-500': elem.status.replaceAll(' ', '') === 'Canceled'? 'text-red-500': elem.status.replaceAll(' ', '') === 'OnTable'? 'text-green-500': elem.status.replaceAll(' ', '') === 'Confirmed'? 'text-green-500':''}`}
-             key={`${elem.sl}-${ind}-${elem.status}`}>{elem.status}</span>
-            <span className="bg-sky-50" key={`${elem.sl}-${ind}-${elem.Type}`}>{elem.Type}</span>
-            <span key={`${elem.sl} ${ind}`} className="flex gap-1 justify-evenly">
-            <i key={`${ind}view`} className="ri-eye-line text-green-500 hover:bg-green-200 p-1 rounded-full cursor-pointer"></i>
-            <i key={`${ind}print`} className="ri-printer-line text-blue-500 rounded-full p-1 hover:bg-blue-100 cursor-pointer"></i>
+            >{elem.status}</span>
+            <span className="bg-sky-50">{elem.Type}</span>
+            <span  className="flex gap-1 justify-evenly">
+              <Link to={'/order/details/view'}>
+
+            <i  className="ri-eye-line text-green-500 hover:bg-green-200 p-1 rounded-full cursor-pointer"></i>
+              </Link>
+              <Link to={'/order/details/print'}>
+                
+            <i  className="ri-printer-line text-blue-500 rounded-full p-1 hover:bg-blue-100 cursor-pointer"></i>
+              </Link>
             </span>
       </>
     }
