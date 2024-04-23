@@ -13,7 +13,9 @@ const Pending = () => {
       const response = await TableData();
       console.log(response?.order, "pending");
       setPendingData(
-        response?.order?.filter((order) => order?.orderStatus === "pending")
+        // response?.order?.filter((order) => order?.orderStatus === "pending" && res.orderType === "delivery")
+        response?.order?.filter((order) => order?.orderStatus === "pending" && order?.orderType === "delivery")
+
       );
     } catch (error) {
       console.log(error, "pending");

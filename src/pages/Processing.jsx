@@ -13,7 +13,7 @@ const Processing = () => {
       const response = await TableData();
       console.log(response?.order, "processing");
       setProcessingData(
-        response?.order?.filter((res) => res?.orderStatus === "processing")
+        response?.order?.filter((res) => res?.orderStatus === "processing" && res?.orderType === "delivery")
       );
     } catch (error) {
       console.log(error, "processing");

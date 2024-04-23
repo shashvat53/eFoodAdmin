@@ -13,7 +13,7 @@ const Delivered = () => {
       const response = await TableData();
     console.log(response?.order,'delivered ');
     setDeliveredData(
-      response?.order?.filter((res) => res?.orderStatus === "delivered")
+      response?.order?.filter((res) => res?.orderStatus === "delivered" && res?.orderType === "delivery")
     );
     } catch (error) {
       console.log(error,'delivered error')

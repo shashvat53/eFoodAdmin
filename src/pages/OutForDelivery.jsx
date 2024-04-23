@@ -13,7 +13,7 @@ const OutForDelivery = () => {
       const response = await TableData();
       console.log(response?.order, "out for delivery");
       setOutForDeliveryData(
-        response?.order?.filter((res) => res?.orderStatus === "outforDelivery")
+        response?.order?.filter((res) => res?.orderStatus === "outforDelivery" && res?.orderType === "delivery")
       );
     } catch (error) {
       console.log(error, "outfordelivery error");

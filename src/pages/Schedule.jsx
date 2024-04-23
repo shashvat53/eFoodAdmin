@@ -13,7 +13,7 @@ const Schedule = () => {
       const response = await TableData();
       console.log(response?.order, "scheduled");
       setScheduleData(
-        response?.order?.filter((res) => res?.orderStatus === "schedule")
+        response?.order?.filter((res) => res?.orderStatus === "schedule" && res?.orderType === "delivery")
       );
     } catch (error) {
       console.log(error, "scheduled error");

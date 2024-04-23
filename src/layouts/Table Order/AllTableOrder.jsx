@@ -5,13 +5,31 @@ import SearchBox from '../../components/ui/SearchBox'
 import Table from '../../components/ui/Table'
 import { useParams } from 'react-router-dom'
 import OrderDetailsJson from '../../components/json/OrderDetailsJson'
+import TableData from '../../helper/TableData'
 
 const AllTableOrder = () => {
   const [orderData, setOrderData] = useState(OrderDetailsJson())
   const {name} = useParams()
+  
   useEffect(()=>{
     // console.log(orderData);
+    fetchTableData()
   },[])
+
+
+  const [tableData, setTableData] = useState();
+  const fetchTableData = async () => {
+    try {
+      const response = await TableData();
+      setTableData(
+        response?.order.filter((res) => res.orderType === "dine_In")
+      );
+      // console.log(response.order, "table data");
+    // console.log(tableData,"arti")
+    } catch (error) {
+      console.log(error, "all error");
+    }
+  };
 
   const title = {
     All:'All Table Orders',
@@ -47,7 +65,7 @@ const AllTableOrder = () => {
     </div>
     <div className='overflow-auto'>
 
-    <Table data={orderData} filter={name}/>
+    <Table data={tableData} filter={name}/>
     </div>
     </div>
   )

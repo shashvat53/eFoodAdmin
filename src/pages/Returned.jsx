@@ -12,7 +12,7 @@ const Returned = () => {
     try {
       const response = await TableData();
       console.log(response?.order, "returned");
-      setReturnedData(response?.order?.filter(res?.orderStatus === "returned"));
+      setReturnedData(response?.order?.filter(res?.orderStatus === "returned" && res?.orderType === "delivery"));
     } catch (error) {
       console.log(error, "returned error");
     }
