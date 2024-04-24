@@ -26,6 +26,22 @@ const SideBar = ({ product, openNav, makeOpen, setMakeOpen }) => {
     setMakeOpen(true);
   };
 
+  const lickClickHandler = ()=>{
+    setMakeOpen(false)
+  }
+
+  useEffect(() => {
+    if (!makeOpen) {
+      setActiveIndex(null);
+      setActiveNum(null);
+    }
+  
+    return () => {
+      
+    }
+  }, [makeOpen])
+  
+
   const sideBarFunction = () => {
     return (
       <motion.div
@@ -60,7 +76,7 @@ const SideBar = ({ product, openNav, makeOpen, setMakeOpen }) => {
                           <Link
                             to={ite.href}
                             className="flex gap-2 items-center"
-                            onClick={() => setMakeOpen(false)}
+                            onClick={lickClickHandler}
                           >
                             {ite.icon}
                             <span
@@ -124,7 +140,7 @@ const SideBar = ({ product, openNav, makeOpen, setMakeOpen }) => {
                                           .replaceAll(" ", "")
                                           .toLowerCase()}`}
                                         className="flex gap-2 items-center"
-                                        onClick={() => setMakeOpen(false)}
+                                        onClick={lickClickHandler}
                                       >
                                         <span
                                           className={` mb-3  text-sm ${
