@@ -13,7 +13,7 @@ const Failed = () => {
       const response = await TableData();
       console.log(response?.order, "failed");
       setFailedData(
-        response?.order?.filter((res) => res?.orderStatus === "failed")
+        response?.order?.filter((res) => res?.orderStatus === "failed" && res?.orderType === "delivery")
       );
     } catch (error) {
       console.log(error, "failed error");
