@@ -14,7 +14,7 @@ const All = () => {
       const response = await TableData();
       console.log(response.order, "all data");
       setTableData(
-        response?.order.filter((res) => res.orderType === "delivery")
+        response?.order?.filter((res) => res.orderType === "delivery")
       );
     } catch (error) {
       console.log(error, "all error");

@@ -148,7 +148,7 @@ function OrderTable({ tableData }) {
                   <Link
                     to={"/order/details/print"}
                     className="btn btn-sm btn-outline-success rounded-full p-2 hover:bg-green-500 hover:text-white transition duration-300"
-                  >
+>
                     <i className="fa-solid fa-floppy-disk"></i>
                   </Link>
                 </div>
