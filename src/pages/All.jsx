@@ -13,11 +13,15 @@ const All = () => {
     try {
       const response = await TableData();
       console.log(response.order, "all data");
-      setTableData(response?.order);
+      setTableData(
+        response?.order.filter((res) => res.orderType === "delivery")
+      );
     } catch (error) {
       console.log(error, "all error");
     }
   };
+
+
 
   useEffect(() => {
     fetchTableData();
@@ -100,7 +104,7 @@ const All = () => {
         />
       </div>
       <SearchExportForm />
-      <OrderTable tableData={tableData}/>
+      <OrderTable tableData={tableData} />
       <Pagination />
       <Footer />
     </div>

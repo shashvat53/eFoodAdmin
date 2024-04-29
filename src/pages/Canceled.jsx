@@ -14,7 +14,7 @@ const Canceled = () => {
       const response = await TableData();
       console.log(response.order, "cancelled");
       setCancelledData(
-        response.order.filter((res) => res.orderStatus === "cancelled")
+        response.order.filter((res) => res.orderStatus === "cancelled" && res.orderType === "delivery")
       );
     } catch (error) {
       console.log(error);

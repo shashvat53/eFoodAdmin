@@ -13,7 +13,7 @@ const Confirmed = () => {
       const response = await TableData();
       console.log(response?.order, "confirmed");
       setConfirmedData(
-        response?.order?.filter((res) => res?.orderStatus === "confirmed")
+        response?.order?.filter((res) => res?.orderStatus === "confirmed" && res?.orderType === "delivery")
       );
     } catch (error) {
       console.log(error, "confirmed error");
@@ -49,7 +49,7 @@ const Confirmed = () => {
       <SearchExportForm />
       <OrderTable tableData={confirmedData} />
       <Pagination />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
