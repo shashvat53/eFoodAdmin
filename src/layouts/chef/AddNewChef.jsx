@@ -75,7 +75,7 @@ const AddNewChef = () => {
 
       let sendForEditData = { 
        
-        // branchId : data?.branchId?.branchName, // Replace branchId.branchName with the actual branchId
+        branchId : data?.branchId?.branchName, // Replace branchId.branchName with the actual branchId
         contactNumber:data?.contactNumber,
         firstName:data?.firstName,
         lastName:data?.lastName,
@@ -207,6 +207,7 @@ const AddNewChef = () => {
                 {...register("branchId.branchName", { required: true })}
                 defaultValue={receivedData?.branchId?.branchName || ""}
               >   
+              <option selected disabled>--select--</option>
                 { branchData?.map((branch, index) => (
                   <option key={index} value={branch._id}  >
                     {branch.branchName} 

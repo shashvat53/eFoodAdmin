@@ -5,13 +5,27 @@ import { editChef } from "../../../helper/ChefList";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { DeleteEmploye } from "../../../helper/Employe";
+import { DeleteEmploye, employeStatus } from "../../../helper/Employe";
 import EditEmployee from "../../../layouts/Employe Setup/EditEmployee";
 
 
 const EmployeSetupList = ( {data,setreLoad,reload,setIsOpen} ) => {
   console.log(data,"table");
   const [openEdit, setopenEdit] = useState(false)
+
+  const [toggleStates, setToggleStates] = useState({});
+
+  useEffect(() => {
+    // Initialize toggle states based on data
+    if (data) {
+      const initialToggleStates = {};
+      data.forEach((elem) => {
+        initialToggleStates[elem._id] = elem.is_active;
+      });
+      // console.log(initialToggleStates,"555")
+      setToggleStates(initialToggleStates);
+    }
+  }, [data]);
 
   const listArr = [
     "SL",
@@ -72,6 +86,18 @@ const editHandler =async (employeData)=>{
 }
 
 
+const statusHandler = async (id) => {
+  try {
+    const res = await employeStatus(id);
+    const updatedToggleStates = { ...toggleStates };
+    updatedToggleStates[id] = res.is_active;
+    setToggleStates(updatedToggleStates);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 
    const Item = (elem, ind) => {
    return (
@@ -80,7 +106,13 @@ const editHandler =async (employeData)=>{
         
        <span>{elem?.employeeName}</span>
        <span>{elem?.contactNumber}</span>
-       <span><ToggleSwitch value={elem?.is_active}/></span>
+       <span>
+          <ToggleSwitch
+            id={elem._id}
+            value={toggleStates[elem._id]}
+            onChange={() => statusHandler(elem._id)}
+          />
+        </span>
        <span  className="flex gap-1 justify-evenly">
 
          <i onClick={()=>editHandler(elem)}

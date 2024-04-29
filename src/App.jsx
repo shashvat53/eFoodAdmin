@@ -104,11 +104,7 @@ const App = () => {
   }, []);
   return (
     <>
-      {isAuth ? <> <div className='fixed top-0 left-0 w-full z-20'>
-        <NavBar setIsAuth={setIsAuth} />
-      </div>
-      
-     <div className='w-[250px] fixed top-0 z-30 flex flex-col'>
+      {isAuth ? (
         <>
           <div className="fixed top-0 left-0 w-full z-20">
             <NavBar setIsAuth={setIsAuth} />

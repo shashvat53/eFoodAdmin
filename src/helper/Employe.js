@@ -35,3 +35,12 @@ export const updateEmploye = async (id, employeData) => {
     return error.response.data; // Throw the error response data
   }
 };
+
+export const employeStatus = async (employeId) => {
+  try {
+    const response = await instance.put(`/employee/is_active/${employeId}`);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
