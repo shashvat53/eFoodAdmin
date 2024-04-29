@@ -1,30 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import image from '../../assets/react.svg'
 import graph from '../../assets/graph.svg'
 import graph1 from '../../assets/graph1.svg'
-import instance from '../../config/Axios'
 
 const Dashboard = () => {
 
-    const [getOrder, setgetOrder] = useState()
 
-    const fetchAllOrder = async()=>{
-        try {
-            const {data} = await instance.get('/order');
-            console.log(data)
-        } catch (error) {
-            
-        }
-    }
-
-    useEffect(() => {
-      fetchAllOrder()
-    
-      return () => {
-        
-      }
-    }, [])
-    
   
     return (
         <div className='w-full min-h-screen p-5'>

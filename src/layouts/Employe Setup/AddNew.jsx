@@ -21,20 +21,22 @@ const AddNew = ({setIsOpen}) => {
       console.log(error)
     }
   };
-  const fetchBranch = async () => {
+
+  const getAllBranchData = async () => {
     try {
-      const res = await getAllBranch()
-      console.log(res?.data.branch,"1111");
-      setBranch(res?.data?.branch);
-      
+      const { branch } = await getAllBranch();
+      setBranch(branch);
+      console.log(branchData, "211");
+      console.log(branch, "123");
     } catch (error) {
-      console.log(error,"dddd")
+      console.log(error);
     }
   };
 
+
   useEffect(() => {
     fetchRoles();
-    fetchBranch()
+    getAllBranchData()
   }, []);
 
   const onSubmit =async (data) => {
